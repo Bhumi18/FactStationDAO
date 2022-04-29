@@ -95,6 +95,7 @@ body {
 .cards {
   /* padding:0rem 9rem; */
   width: 100%;
+  height: 100vh;
   margin: 0px auto;
   background-color: #01161e;
   padding: 10px;
@@ -264,6 +265,7 @@ textarea {
   position: absolute;
   top: 50%;
   left: 50%;
+  color: #01161e;
   transform: translate(-50%, -50%);
   cursor: pointer;
 }
@@ -286,4 +288,16 @@ textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+}
+.withdrawbtn {
+  background: none;
+  border: 1px solid #76feef;
+  color: white;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.imgreward {
+  height: 200px;
 }

@@ -21,13 +21,11 @@ function navigation() {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             <Nav className="me-auto">
-              <Nav.Link href="http://localhost:3000/upload">Upload</Nav.Link>
-              <Nav.Link href="http://localhost:3000/member">
-                Become a Member
-              </Nav.Link>
-              <Nav.Link href="http://localhost:3000/req">Dashboard</Nav.Link>
+              <Nav.Link href={"/upload"}>Upload</Nav.Link>
+              <Nav.Link href={"/Member"}>Become a Member</Nav.Link>
+              <Nav.Link href={"/dash"}>Dashboard</Nav.Link>
 
-              <Nav.Link href="#link">Connect Wallet</Nav.Link>
+              <Nav.Link href={"/"}>Connect Wallet</Nav.Link>
             </Nav>
           </Navbar.Text>
         </Navbar.Collapse>

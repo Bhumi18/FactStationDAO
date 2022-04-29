@@ -12,6 +12,7 @@ import "./components/Style.css";
 import Request from "./components/Request";
 import Member from "./components/Member";
 import Upload from "./components/upload";
+import Rewards from "./components/rewards";
 //import Ipfs from "./components/ipfs";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/Upload" element={<Upload />}></Route>
           {/* <Route exact path="/ipfs" element={<Ipfs />}></Route> */}
           <Route exact path="/Member" element={<Member />}></Route>
+          <Route exact path="/rew" element={<Rewards />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -4,12 +4,13 @@ import { ethers } from "ethers";
 import { useState } from "react";
 import React, { useEffect } from "react";
 import FactStation from "../artifacts/contracts/FactStation.sol/FactStation.json";
+import { Link } from "react-router-dom";
 
-const factStationAddress = "0x767df7702C19a6aa51BB839C2AE871e76fc83845";
+const factStationAddress = "0x0EB56421e8A5Ab7BFa097Ace6Db67fD9E6e23d04";
 
 function Dashboard() {
-  const [imgs, setimgs] = useState({});
-  let imgItems = [];
+  //const [imgs, setimgs] = useState({});
+  //let imgItems = [];
   let post_status;
   const [id, setId] = useState("");
   const [src, setsrc] = useState([]);
@@ -36,6 +37,7 @@ function Dashboard() {
         for (let j = 0; j <= total_voted.length; j++) {
           if (i != total_voted[j] || !total_voted[j]) {
             const txn = await contract.getPost(i);
+            //console.log(txn);
             if (!txn.isVerified) {
               let cid = txn.CID;
               let postId = txn.postId;
@@ -77,8 +79,14 @@ function Dashboard() {
           signer
         );
         console.log("image id " + id.id);
-        const vote_tx = await contract.vote(id, post_status);
-        await vote_tx.wait();
+        let id1 = parseInt(id.id, 10);
+        console.log(typeof id1);
+        //console.log(typeof post_status);
+        let status_number = parseInt(post_status);
+        //console.log(typeof status_number);
+        const vote_tx = await contract.vote(id1, status_number);
+        vote_tx.wait();
+        console.log(vote_tx);
       }
     }
   };
@@ -92,8 +100,9 @@ function Dashboard() {
       <Wallet />
       <div className="main-dash">
         <div className="first">
+          {console.log(src)}
+
           {src.map((inde) => {
-            console.log("in map");
             return (
               <img
                 src={inde[1]}
@@ -138,12 +147,13 @@ function Dashboard() {
 
         {/* </div> */}
         <div className="third">
-          <div className="card1">
-            <p>Your Rewards</p>
-          </div>
-          <div className="card2">
-            <p>Your History</p>
-          </div>
+          <button className="card1">
+            <Link to="/rew">
+              <div>
+                <p>Your History</p>
+              </div>
+            </Link>
+          </button>
         </div>
       </div>
     </>

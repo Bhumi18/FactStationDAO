@@ -5,11 +5,12 @@ import { useState, useEffect } from "react";
 import { FileUpload } from "react-ipfs-uploader";
 import { ethers } from "ethers";
 import FactStation from "../artifacts/contracts/FactStation.sol/FactStation.json";
-const factStationAddress = "0x767df7702C19a6aa51BB839C2AE871e76fc83845";
+
+const factStationAddress = "0x0EB56421e8A5Ab7BFa097Ace6Db67fD9E6e23d04";
 
 function FileUploader() {
   const [fileUrl, setFileUrl] = useState("");
-
+  console.log(process.env.REACT_APP_PRIVATEKEY);
   const createpost = async (e) => {
     if (typeof window.ethereum !== "undefined") {
       await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -24,6 +25,7 @@ function FileUploader() {
       tx.wait();
       console.log(fileUrl);
       setFileUrl("");
+      alert("Post Created !!!");
     }
   };
   return (

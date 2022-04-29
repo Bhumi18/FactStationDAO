@@ -21,13 +21,16 @@ contract FactStation {
     mapping(address => uint256[]) myPosts;
     mapping(address => uint256[]) myVotedPosts;
     mapping(uint256 => Expert) expert;
+    mapping(address => mapping(uint256 => uint256)) myVote;
     uint256 openForVoteTime = 180;
 
     mapping(address => mapping(uint256 => bool)) hasVoted;
 
     event Sell(address _buyer, uint256 _amount);
 
-    FSToken s = FSToken(0xd64DB5e13532838e0D7c4431B345e29eA3cC376e);
+    event postCreated(uint256 indexed _postId, uint256 indexed _totalVotes);
+
+    FSToken s = FSToken(0xbF0F1288b77e01113DceA826F1d8BA44e0908287);
 
     struct Posts {
         uint256 postId;
@@ -87,6 +90,7 @@ contract FactStation {
             "Pending"
         );
         myPosts[msg.sender].push(postIdCounter);
+        emit postCreated(postIdCounter, _totalVotes);
     }
 
     function buyTokens(uint256 _numberOfTokens) public payable {
@@ -122,17 +126,20 @@ contract FactStation {
             posts[_id].totalVotes += 1;
         }
         myVotedPosts[msg.sender].push(_id);
+        myVote[msg.sender][_id] = _status;
         hasVoted[msg.sender][_id] = true;
     }
 
     function decision(uint256 _id) public {
-        require(block.timestamp > posts[_id].closingTime);
+        //require(block.timestamp > posts[_id].closingTime);
         require(posts[_id].isVerified == false, "Decision is made already.");
-        if (((posts[_id].yesVotes / posts[_id].totalVotes) * 100) > 80) {
+        if (posts[_id].totalVotes == 0) {
+            posts[_id].status = "Questionable";
+        } else if (((posts[_id].yesVotes / posts[_id].totalVotes) * 100) > 80) {
             posts[_id].status = "Verified";
         } else if (((posts[_id].noVotes / posts[_id].totalVotes) * 100) > 80) {
             posts[_id].status = "Fake";
-        } else posts[_id].status = "Questionable";
+        }
 
         posts[_id].isVerified = true;
     }
@@ -147,6 +154,10 @@ contract FactStation {
 
     function getPost(uint256 _id) public view returns (Posts memory) {
         return posts[_id];
+    }
+
+    function getMyVote(uint256 _id) public view returns (uint256) {
+        return myVote[msg.sender][_id];
     }
 
     function getTotalPosts() public view returns (uint256) {

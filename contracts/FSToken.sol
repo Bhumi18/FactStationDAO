@@ -6,7 +6,7 @@ contract FSToken {
     string public symbol = "FST";
     uint256 public totalSupply;
     address public admin;
-    uint256 tokenPrice;
+    uint256 tokenPrice = 0.0001 ether;
     uint256 public tokensSold;
 
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
@@ -18,11 +18,11 @@ contract FSToken {
     mapping(address => uint256) public balanceOf;
 
     // mapping(address => mapping(address => uint256)) public allowance;
-    constructor(uint256 _initialSupply, uint256 _price) {
+    constructor(uint256 _initialSupply) {
         admin = msg.sender;
         balanceOf[admin] = _initialSupply;
         totalSupply = _initialSupply;
-        tokenPrice = _price;
+        //tokenPrice = _price;
     }
 
     function checkBalance() external view returns (uint256) {

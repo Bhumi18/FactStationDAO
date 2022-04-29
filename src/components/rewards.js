@@ -8,10 +8,11 @@ import FactStation from "../artifacts/contracts/FactStation.sol/FactStation.json
 
 const factStationAddress = "0x0EB56421e8A5Ab7BFa097Ace6Db67fD9E6e23d04";
 
-function Request() {
+function Rewards() {
   const [src, setsrc] = useState([]);
   const [marketItems, setMarketItems] = useState(null);
   const [isLoading, setLoading] = React.useState(true);
+  const [vot, setvotes] = useState([]);
 
   const userPosts = async () => {
     if (typeof window.ethereum !== "undefined") {
@@ -23,18 +24,45 @@ function Request() {
         FactStation.abi,
         signer
       );
-      const id_array = await contract.getMyPostsIds();
-      // console.log(id_array);
-      //console.log(id_array.length);
+      const id_array = await contract.getMyVotedPostIds();
       for (let i = 0; i < id_array.length; i++) {
-        // console.log(id_array[i]);
         const txn = await contract.getPost(id_array[i]);
+        const txn1 = await contract.getMyVote(id_array[i]);
+        let userVoted = "";
+        let check = parseInt(txn1, 10);
+
+        console.log(check);
         let cid = txn.CID;
         let status = txn.status;
-        src.push([status, cid]);
+        console.log(status);
+        if (status === "Verified") {
+          if (check === 1) {
+            userVoted = "With";
+          } else if (check === 2) {
+            userVoted = "Against";
+          }
+        } else if (status === "Fake") {
+          console.log(check);
+          if (check === 1) {
+            userVoted = "Against";
+          } else if (check === 2) {
+            userVoted = "With";
+          }
+        } else if (status === "Questionable") {
+          if (check === 1) {
+            userVoted = "Yes";
+          } else if (check === 2) {
+            userVoted = "No";
+          }
+        }
+        console.log(userVoted);
+        //console.log(typeof tv1);
+        //vot.push(tv);
+        src.push([status, cid, userVoted]);
       }
       console.log("  " + src[0]);
       console.log("  " + src[1]);
+      console.log("  " + src[2]);
     }
     setsrc(src);
     setLoading(false);
@@ -73,15 +101,13 @@ function Request() {
 
             <div>
               {src.map((index) => {
-                console.log("hi");
-                // console.log(",," + index[0]);
-                // console.log(",," + index[1]);
                 return (
                   // <h1>hiiii</h1>
                   <div class="column">
                     <div class="card">
-                      <img className="img" src={index[1]}></img>;
-                      <div className="status">{index[0]}</div>
+                      <img className="imgreward" src={index[1]}></img>;
+                      <div className="status">Result : {index[0]}</div>
+                      <div className="status">Your Vote : {index[2]}</div>
                     </div>
                   </div>
                 );
@@ -139,8 +165,37 @@ function Request() {
           </div> */}
           </div>
         </div>
+        {/* <div class="column">
+              <div class="card">
+                <div>
+                  {" "}
+                  <img className="img"></img>
+                </div>
+                <div>
+                  <button className="withdrawbtn">Withdraw</button>
+                </div>
+              </div>
+            </div> */}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Navigation />
+        <Wallet />
+        <div className="cards">
+          <div class="row">
+            <div class="column">
+              <div class="card">
+                <div> {/* <img className="img"></img> */}</div>
+                <div className="status">Not voted</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
     );
   }
 }
-export default Request;
+
+export default Rewards;

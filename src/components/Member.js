@@ -5,8 +5,8 @@ import FactStation from "../artifacts/contracts/FactStation.sol/FactStation.json
 import fsToken from "../artifacts/contracts/FSToken.sol/FSToken.json";
 import { useState, useEffect } from "react";
 
-const factStationAddress = "0x767df7702C19a6aa51BB839C2AE871e76fc83845";
-const fsTokenAddress = "0xd64DB5e13532838e0D7c4431B345e29eA3cC376e";
+const factStationAddress = "0x0EB56421e8A5Ab7BFa097Ace6Db67fD9E6e23d04";
+const fsTokenAddress = "0xbF0F1288b77e01113DceA826F1d8BA44e0908287";
 
 function Member() {
   const [noOfTokens, setNoOfTokens] = useState(0);
