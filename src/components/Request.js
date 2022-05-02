@@ -6,7 +6,7 @@ import { Component, useState } from "react";
 import React, { useEffect } from "react";
 import FactStation from "../artifacts/contracts/FactStation.sol/FactStation.json";
 
-const factStationAddress = "0x0EB56421e8A5Ab7BFa097Ace6Db67fD9E6e23d04";
+const factStationAddress = "0xfbcb89b8858B32bbC162447A263E8ca668933BCa";
 
 function Request() {
   const [src, setsrc] = useState([]);

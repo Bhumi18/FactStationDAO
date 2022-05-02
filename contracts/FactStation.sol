@@ -30,7 +30,7 @@ contract FactStation {
 
     event postCreated(uint256 indexed _postId, uint256 indexed _totalVotes);
 
-    FSToken s = FSToken(0xbF0F1288b77e01113DceA826F1d8BA44e0908287);
+    FSToken s = FSToken(0xCa469fa3E69a66a4A4AE52F4dF7c94D9c7fE6Be7);
 
     struct Posts {
         uint256 postId;

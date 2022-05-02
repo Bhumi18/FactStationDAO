@@ -13,7 +13,7 @@ async function main() {
 
   await factstation.deployed();
 
-  console.log("FactStation deployed to:", factstation.address); // 0x7013DEcb7242731f352e965e4835a8019B395Ecf
+  console.log("FactStation deployed to:", factstation.address); // 0xfbcb89b8858B32bbC162447A263E8ca668933BCa
 }
 
 main()
